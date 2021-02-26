@@ -250,7 +250,7 @@ class Keyboard extends Module {
 
   handleEnter(range, context) {
     if (context.format.blockquote && context.offset === 0 && context.collapsed === true) {
-      this.quill.format('list', false);
+      this.quill.format('blockquote', false);
     }
 
     const lineFormats = Object.keys(context.format).reduce(
