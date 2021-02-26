@@ -33,7 +33,7 @@ class Keyboard extends Module {
     this.addBinding({ key: 'Enter', shiftKey: null }, this.handleEnter);
     this.addBinding(
       { key: 'Enter', metaKey: null, ctrlKey: null, altKey: null },
-      () => {},
+      () => { },
     );
     if (/Firefox/i.test(navigator.userAgent)) {
       // Need to handle delete and backspace for Firefox in the general case #1171
@@ -249,6 +249,10 @@ class Keyboard extends Module {
   }
 
   handleEnter(range, context) {
+    if (context.format.blockquote && context.offset === 0 && context.collapsed === true) {
+      this.quill.format('list', false);
+    }
+
     const lineFormats = Object.keys(context.format).reduce(
       (formats, format) => {
         if (
@@ -416,14 +420,14 @@ Keyboard.DEFAULTS = {
       format: ['table'],
       collapsed: true,
       offset: 0,
-      handler() {},
+      handler() { },
     },
     'table delete': {
       key: 'Delete',
       format: ['table'],
       collapsed: true,
       suffix: /^$/,
-      handler() {},
+      handler() { },
     },
     'table enter': {
       key: 'Enter',
