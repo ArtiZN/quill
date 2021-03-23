@@ -4962,8 +4962,18 @@ Keyboard.DEFAULTS = {
       key: Keyboard.keys.ENTER,
       shiftKey: true,
       format: ['list'],
-      handler: function handler(range) {
-        this.quill.insertText(range.index, '\n');
+      handler: function handler() {
+        // let text = this.quill.root.innerHTML
+        // const li = `<li>${context.prefix}${context.suffix}</li>`
+        // const newLi = `<li>${context.prefix}\n${context.suffix}</li>`
+        // text = text.replace(li, newLi)
+        // console.log(range.index)
+        // console.log(range)
+        // console.log(context)
+        // console.log(text)
+        // this.quill.insertText(range.index, '\n')
+        // this.quill.root.innerHTML = text
+        // this.quill.getSelection(context.offset, 0)
       }
     },
     'embed left': makeEmbedArrowHandler(Keyboard.keys.LEFT, false),
@@ -9427,15 +9437,14 @@ var Clipboard = function (_Module) {
       var range = this.quill.getSelection();
       var delta = new _quillDelta2.default().retain(range.index);
       var scrollTop = this.quill.scrollingContainer.scrollTop;
-      this.container.focus();
       this.quill.selection.update(_quill2.default.sources.SILENT);
+      this.quill.setSelection(delta.length() + range.length, 0);
       setTimeout(function () {
         delta = delta.concat(_this2.convert()).delete(range.length);
         _this2.quill.updateContents(delta, _quill2.default.sources.USER);
         // range.length contributes to delta.length()
-        _this2.quill.setSelection(delta.length() - range.length, _quill2.default.sources.SILENT);
+        _this2.quill.setSelection(delta.length() + range.length, _quill2.default.sources.SILENT);
         _this2.quill.scrollingContainer.scrollTop = scrollTop;
-        _this2.quill.focus();
       }, 1);
     }
   }, {

@@ -308,9 +308,19 @@ Keyboard.DEFAULTS = {
       key: Keyboard.keys.ENTER,
       shiftKey: true,
       format: ['list'],
-      handler: function (range) {
-        this.quill.insertText(range.index, '\n');
-      },
+      handler: function () {
+        // let text = this.quill.root.innerHTML
+        // const li = `<li>${context.prefix}${context.suffix}</li>`
+        // const newLi = `<li>${context.prefix}\n${context.suffix}</li>`
+        // text = text.replace(li, newLi)
+        // console.log(range.index)
+        // console.log(range)
+        // console.log(context)
+        // console.log(text)
+        // this.quill.insertText(range.index, '\n')
+        // this.quill.root.innerHTML = text
+        // this.quill.getSelection(context.offset, 0)
+      }
     },
     'embed left': makeEmbedArrowHandler(Keyboard.keys.LEFT, false),
     'embed left shift': makeEmbedArrowHandler(Keyboard.keys.LEFT, true),

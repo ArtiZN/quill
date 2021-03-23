@@ -96,7 +96,7 @@ class Toolbar extends Module {
           .retain(range.index)
           .delete(range.length)
           .insert({ [format]: value })
-        , Quill.sources.USER);
+          , Quill.sources.USER);
       } else {
         this.quill.format(format, value, Quill.sources.USER);
       }
@@ -108,7 +108,7 @@ class Toolbar extends Module {
 
   update(range) {
     let formats = range == null ? {} : this.quill.getFormat(range);
-    this.controls.forEach(function(pair) {
+    this.controls.forEach(function (pair) {
       let [format, input] = pair;
       if (input.tagName === 'SELECT') {
         let option;
@@ -136,8 +136,8 @@ class Toolbar extends Module {
           // both being null should match (default values)
           // '1' should match with 1 (headers)
           let isActive = formats[format] === input.getAttribute('value') ||
-                         (formats[format] != null && formats[format].toString() === input.getAttribute('value')) ||
-                         (formats[format] == null && !input.getAttribute('value'));
+            (formats[format] != null && formats[format].toString() === input.getAttribute('value')) ||
+            (formats[format] == null && !input.getAttribute('value'));
           input.classList.toggle('ql-active', isActive);
         } else {
           input.classList.toggle('ql-active', formats[format] != null);
@@ -163,10 +163,10 @@ function addControls(container, groups) {
   if (!Array.isArray(groups[0])) {
     groups = [groups];
   }
-  groups.forEach(function(controls) {
+  groups.forEach(function (controls) {
     let group = document.createElement('span');
     group.classList.add('ql-formats');
-    controls.forEach(function(control) {
+    controls.forEach(function (control) {
       if (typeof control === 'string') {
         addButton(group, control);
       } else {
@@ -186,7 +186,7 @@ function addControls(container, groups) {
 function addSelect(container, format, values) {
   let input = document.createElement('select');
   input.classList.add('ql-' + format);
-  values.forEach(function(value) {
+  values.forEach(function (value) {
     let option = document.createElement('option');
     if (value !== false) {
       option.setAttribute('value', value);
@@ -201,7 +201,7 @@ function addSelect(container, format, values) {
 Toolbar.DEFAULTS = {
   container: null,
   handlers: {
-    clean: function() {
+    clean: function () {
       let range = this.quill.getSelection();
       if (range == null) return;
       if (range.length == 0) {
@@ -216,7 +216,7 @@ Toolbar.DEFAULTS = {
         this.quill.removeFormat(range, Quill.sources.USER);
       }
     },
-    direction: function(value) {
+    direction: function (value) {
       let align = this.quill.getFormat()['align'];
       if (value === 'rtl' && align == null) {
         this.quill.format('align', 'right', Quill.sources.USER);
@@ -225,7 +225,7 @@ Toolbar.DEFAULTS = {
       }
       this.quill.format('direction', value, Quill.sources.USER);
     },
-    indent: function(value) {
+    indent: function (value) {
       let range = this.quill.getSelection();
       let formats = this.quill.getFormat(range);
       let indent = parseInt(formats.indent || 0);
@@ -235,13 +235,13 @@ Toolbar.DEFAULTS = {
         this.quill.format('indent', indent + modifier, Quill.sources.USER);
       }
     },
-    link: function(value) {
+    link: function (value) {
       if (value === true) {
         value = prompt('Enter link URL:');
       }
       this.quill.format('link', value, Quill.sources.USER);
     },
-    list: function(value) {
+    list: function (value) {
       let range = this.quill.getSelection();
       let formats = this.quill.getFormat(range);
       if (value === 'check') {
